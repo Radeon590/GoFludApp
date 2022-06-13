@@ -26,7 +26,7 @@ import (
 
 	tls "github.com/Danny-Dasilva/utls"
 
-	"github.com/Danny-Dasilva/fhttp/httptrace"
+	"GoFludApp/fhttp/httptrace"
 
 	"golang.org/x/net/idna"
 )

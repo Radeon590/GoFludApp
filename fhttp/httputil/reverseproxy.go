@@ -18,7 +18,7 @@ import (
 	"sync"
 	"time"
 
-	http "github.com/Danny-Dasilva/fhttp"
+	http "GoFludApp/fhttp"
 
 	"golang.org/x/net/http/httpguts"
 )

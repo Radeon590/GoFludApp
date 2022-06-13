@@ -13,7 +13,7 @@ import (
 
 	tls "github.com/Danny-Dasilva/utls"
 
-	http "github.com/Danny-Dasilva/fhttp"
+	http "GoFludApp/fhttp"
 )
 
 // NewRequest returns a new incoming server Request, suitable

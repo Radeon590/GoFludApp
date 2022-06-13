@@ -166,6 +166,13 @@ func refererForURL(lastReq, newReq *url.URL) string {
 	return referer
 }
 
+func (c *Client) Send(req *Request) (err error) {
+	resp, timeout, err := c.send(req, c.deadline())
+	resp.closeBody()
+
+	return err
+}
+
 // didTimeout is non-nil only if err != nil.
 func (c *Client) send(req *Request, deadline time.Time) (resp *Response, didTimeout func() bool, err error) {
 	if c.Jar != nil {

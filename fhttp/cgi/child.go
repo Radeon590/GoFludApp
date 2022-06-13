@@ -20,7 +20,7 @@ import (
 
 	tls "github.com/Danny-Dasilva/utls"
 
-	http "github.com/Danny-Dasilva/fhttp"
+	http "GoFludApp/fhttp"
 )
 
 // Request returns the HTTP request as represented in the current

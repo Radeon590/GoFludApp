@@ -1,7 +1,7 @@
 package cycletls
 
 import (
-	http "github.com/Danny-Dasilva/fhttp"
+	http "GoFludApp/fhttp"
 
 	"time"
 

@@ -12,7 +12,7 @@ import (
 	"net/textproto"
 	"sync"
 
-	http "github.com/Danny-Dasilva/fhttp"
+	http "GoFludApp/fhttp"
 )
 
 var (

@@ -37,8 +37,8 @@ import (
 
 	tls "github.com/Danny-Dasilva/utls"
 
-	"github.com/Danny-Dasilva/fhttp/http2"
-	"github.com/Danny-Dasilva/fhttp/http2/hpack"
+	"GoFludApp/fhttp/http2"
+	"GoFludApp/fhttp/http2/hpack"
 	"golang.org/x/term"
 )
 

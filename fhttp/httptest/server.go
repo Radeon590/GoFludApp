@@ -19,8 +19,8 @@ import (
 
 	tls "github.com/Danny-Dasilva/utls"
 
-	http "github.com/Danny-Dasilva/fhttp"
-	"github.com/Danny-Dasilva/fhttp/internal"
+	http "GoFludApp/fhttp"
+	"GoFludApp/fhttp/internal"
 )
 
 // A Server is an HTTP server listening on a system-chosen port on the

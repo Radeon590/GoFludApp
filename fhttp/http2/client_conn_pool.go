@@ -11,7 +11,7 @@ import (
 
 	tls "github.com/Danny-Dasilva/utls"
 
-	http "github.com/Danny-Dasilva/fhttp"
+	http "GoFludApp/fhttp"
 )
 
 // ClientConnPool manages a pool of HTTP/2 client connections.

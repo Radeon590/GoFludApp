@@ -1,3 +1,6 @@
+github.com/Danny-Dasilva/CycleTLS/cycletls v0.0.0-20220603232516-55eeeb654f48/go.mod h1:T02A5vsUQrLW7bblm+oBEYGz/67WW0/hSTcBfTRAXV4=
+github.com/Danny-Dasilva/fhttp v0.0.0-20220418170016-5ea1c560e6a8/go.mod h1:t534vrahRNn9ax1tRiYSUvwJSa9jWaYYgETlfodBPm4=
+github.com/Danny-Dasilva/fhttp v0.0.0-20220418193729-cc12308ae5ea/go.mod h1:2IT2IFG+d+zzFuj3+ksGtVytcCBsF402zMNWHsWhD2U=
 github.com/Danny-Dasilva/utls v0.0.0-20220418055514-7c61e0dbb504/go.mod h1:A2g8gPTJWDD3Y4iCTNon2vG3VcjdTBcgWBlZtopfNxU=
 github.com/Danny-Dasilva/utls v0.0.0-20220418175931-f38e470e04f2/go.mod h1:A2g8gPTJWDD3Y4iCTNon2vG3VcjdTBcgWBlZtopfNxU=
 github.com/Danny-Dasilva/utls v0.0.0-20220418193928-4fb5d057f356 h1:9oTaRlZVE6ygVONGyaDMXSsItPlr73Us8rOMnjhRBFs=
@@ -39,6 +42,8 @@ golang.org/x/sys v0.0.0-20220502124256-b6088ccd6cba/go.mod h1:oPkhp1MJrh7nUepCBc
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/term v0.0.0-20210615171337-6886f2dfbf5b/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
 golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
+golang.org/x/term v0.0.0-20220526004731-065cf7ba2467 h1:CBpWXWQpIRjzmkkA+M7q9Fqnwd2mZr3AFqexg8YTfoM=
+golang.org/x/term v0.0.0-20220526004731-065cf7ba2467/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.6/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
 golang.org/x/text v0.3.7 h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=
