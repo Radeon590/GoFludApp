@@ -1,16 +1,16 @@
 package main
 
 type Attack struct {
-	Url string
-	Host string
-	AttackMethod string
-	PostData interface{}
+	Url           string
+	Host          string
+	AttackMethod  string
+	PostData      interface{}
 	RequestsPerIP int
-	Cookie interface{}
+	Cookie        interface{}
 }
 
 type System struct {
-	Banner string
+	Banner       string
 	HTTP2Timeout int
-	Attack *Attack
+	Attack       *Attack
 }
