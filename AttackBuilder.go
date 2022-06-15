@@ -7,6 +7,7 @@ type Attack struct {
 	PostData      interface{}
 	RequestsPerIP int
 	Cookie        interface{}
+	Ja3           string
 }
 
 type System struct {

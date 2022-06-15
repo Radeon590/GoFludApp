@@ -40,6 +40,7 @@ func main() {
 	var HTTP_HOST string
 	var limit int = 2
 	var proxyFile string = "proxyFile.txt"
+	var fingerprints string = "771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53-10,0-23-65281-10-11-35-16-5-51-43-13-45-28-21,29-23-24-25-256-257,0"
 	var threads int = 200
 	var mode string = "GET"
 	var dur int = 10000
@@ -60,6 +61,8 @@ func main() {
 			limit, _ = strconv.Atoi(strings.Split(x, "=")[1])
 		} else if strings.Contains(x, "proxyFile=") {
 			proxyFile = strings.Split(x, "=")[1]
+		} else if strings.Contains(x, "fingerprints=") {
+			fingerprints = strings.Split(x, "=")[1]
 		} else if strings.Contains(x, "threads=") {
 			threads, _ = strconv.Atoi(strings.Split(x, "=")[1])
 		} else if strings.Contains(x, "mode=") {
@@ -107,6 +110,7 @@ func main() {
 		PostData:      data,
 		RequestsPerIP: limit,
 		Cookie:        cookie,
+		Ja3:           fingerprints,
 	}
 	Sys = System{
 		//Banner:       ShareBanner,
