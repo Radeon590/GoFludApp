@@ -1,8 +1,8 @@
 package main
 
 import (
-	"GoFludApp/cycletls"
 	"fmt"
+	"github.com/Danny-Dasilva/CycleTLS/cycletls"
 	"golang.org/x/net/http2"
 	"math/rand"
 	"net/http"
@@ -97,7 +97,7 @@ restart:
 	headers["sec-fetch-dest"] = "document"
 	client := cycletls.Init()
 	options := cycletls.Options{
-		Proxy:     "https://" + proxy,
+		Proxy:     "http://" + proxy,
 		Ja3:       Sys.Attack.Ja3,
 		UserAgent: UserAgents[rand.Intn(len(UserAgents))],
 		//Headers:   headers,
