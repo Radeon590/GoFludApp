@@ -97,7 +97,7 @@ restart:
 	headers["sec-fetch-dest"] = "document"
 	client := cycletls.Init()
 	options := cycletls.Options{
-		Proxy:     "http://" + proxy,
+		Proxy:     "https://" + proxy,
 		Ja3:       Sys.Attack.Ja3,
 		UserAgent: UserAgents[rand.Intn(len(UserAgents))],
 		//Headers:   headers,

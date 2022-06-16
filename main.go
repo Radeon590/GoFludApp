@@ -35,8 +35,8 @@ func main() {
 	}*/
 
 	//var HTTPVersion string
-	//var Url string = "https://also.black/hit"
-	Url := "http://88.198.8.149"
+	var Url string = "https://also.black/hit"
+	//Url := "http://88.198.8.149"
 	var HTTP_HOST string
 	var limit int = 2
 	var proxyFile string = "proxyFile.txt"
@@ -114,7 +114,7 @@ func main() {
 	}
 	Sys = System{
 		//Banner:       ShareBanner,
-		HTTP2Timeout: 1000,
+		HTTP2Timeout: 10000,
 		Attack:       &New,
 	}
 
