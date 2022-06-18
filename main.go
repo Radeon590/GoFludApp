@@ -85,7 +85,7 @@ func main() {
 		mode = "POST"
 	}
 
-	f, err := os.Open("C://" + proxyFile)
+	f, err := os.Open(proxyFile)
 	if err != nil {
 		fmt.Println("Proxy file does not exist!", err)
 		return
