@@ -35,8 +35,8 @@ func main() {
 	}*/
 
 	//var HTTPVersion string
-	//var Url string = "http://also.black/hit" //"http://95.211.208.171"
-	Url := "http://95.211.208.171" //"http://88.198.8.149"
+	var Url string = "http://also.black/hit" //"http://95.211.208.171"
+	//Url := "http://95.211.208.171" //"http://88.198.8.149"
 	var HTTP_HOST string
 	var limit int = 2
 	var proxyFile string = "C:/ForTransfering/proxyFile.txt"
