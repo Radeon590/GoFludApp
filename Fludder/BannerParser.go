@@ -1,4 +1,4 @@
-package main
+package Fludder
 
 import (
 	"os"

